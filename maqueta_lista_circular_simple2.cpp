@@ -12,7 +12,7 @@ typedef struct Nodo{
 NodoA* crear_nodo(NodoA* cabecera, int dato);
 void insertar_cabeza(NodoA*& cabecera, int dato);
 void insertar_cola(NodoA*& cabecera, int dato);
-NodoA* buscar(NodoA* cabecera, int dato);
+int buscar(NodoA* cabecera, int dato);
 void mostrar(NodoA* cabecera);
 void eliminar(NodoA*& cabecera, int dato);
 
@@ -21,25 +21,16 @@ int main() {
 
     NodoA* puntero_lista = NULL;
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 1);
+    insertar_cabeza(puntero_lista, 1);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 2);
+    insertar_cabeza(puntero_lista, 2);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 3);
+    insertar_cabeza(puntero_lista, 3);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 4);
+    insertar_cabeza(puntero_lista, 4);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 5);
+    insertar_cabeza(puntero_lista, 5);
     mostrar(puntero_lista);
-
-    NodoA* busqueda = buscar(puntero_lista, 4);
-    if(busqueda != NULL){
-        cout << "Encontrado... " << busqueda->dato << endl;
-    }
-    else{
-        cout << "No encontrado" << endl;
-    }
-
 
     return 0;
 }
@@ -57,44 +48,45 @@ void insertar_cabeza(NodoA*& cabecera, int dato){
         cabecera->sig = cabecera;
     }
     else{
-        NodoA* anterior_nuevo = cabecera;
-        while(anterior_nuevo->sig != cabecera){
-            anterior_nuevo = anterior_nuevo->sig;
-        }
         NodoA* nuevo_nodo = crear_nodo(NULL, dato);
-        anterior_nuevo->sig = nuevo_nodo;
-        nuevo_nodo->sig = cabecera;
+        nuevo_nodo->sig = cabecera->sig;
+        cabecera->sig = nuevo_nodo;
         cabecera = nuevo_nodo;
     }
 }
 
 void insertar_cola(NodoA*& cabecera, int dato){
     if(cabecera == NULL){
-        cabecera = crear_nodo(NULL, dato);
-        cabecera->sig = cabecera;
+        cabecera = crear_nodo(cabecera, dato);
     }
     else{
-        NodoA* anterior_nuevo = cabecera;
-        while(anterior_nuevo->sig != cabecera){
-            anterior_nuevo = anterior_nuevo->sig;
+        NodoA* aux = cabecera;
+        while(aux->sig != NULL){
+            aux = aux->sig;
         }
-        NodoA* nuevo_nodo = crear_nodo(NULL, dato);
-        anterior_nuevo->sig = nuevo_nodo;
-        nuevo_nodo->sig = cabecera;
+        aux->sig = crear_nodo(NULL, dato);
     }
 }
 
-NodoA* buscar(NodoA* cabecera, int dato){
-    NodoA* nodo_buscar = cabecera;
-    do{
-        if(nodo_buscar->dato == dato){
-            return nodo_buscar;
+int buscar(NodoA* cabecera, int dato){
+    int posicion = 0, encontrado = 0;
+    NodoA* aux = cabecera;
+    while(aux != NULL){
+        if(aux->dato == dato){
+            encontrado = 1;
+            break;
         }
-        nodo_buscar = nodo_buscar->sig;
-    }while(nodo_buscar != cabecera);
-    return NULL;
+        posicion++;
+        aux = aux->sig;
+    }
+    if(encontrado == 1){
+        return posicion;
+    }
+    else{
+        return -1;
+    }
 }
-/*
+
 void eliminar(NodoA*& cabecera, int dato){
     int posicion = buscar(cabecera, dato);
     if (posicion != -1){
@@ -116,7 +108,7 @@ void eliminar(NodoA*& cabecera, int dato){
         cout << "No encontrado!" << endl;
     }
 }
-*/
+
 void mostrar(NodoA* cabecera){
     cout << "CAB->";
     NodoA* aux = cabecera;
