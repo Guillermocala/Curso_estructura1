@@ -21,15 +21,15 @@ int main() {
 
     NodoA* puntero_lista = NULL;
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 1);
+    insertar_cabeza(puntero_lista, 1);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 2);
+    insertar_cabeza(puntero_lista, 2);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 3);
+    insertar_cabeza(puntero_lista, 3);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 4);
+    insertar_cabeza(puntero_lista, 4);
     mostrar(puntero_lista);
-    insertar_cola(puntero_lista, 5);
+    insertar_cabeza(puntero_lista, 5);
     mostrar(puntero_lista);
 
     NodoA* busqueda = buscar(puntero_lista, 4);
