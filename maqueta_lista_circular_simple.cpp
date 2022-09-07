@@ -94,7 +94,7 @@ NodoA* buscar(NodoA* cabecera, int dato){
         de lo contrario al final retorna NULL
     */
     NodoA* aux = cabecera;
-    if(cabecera == NULL){
+    if(cabecera != NULL){
         do{
             if(aux->dato == dato){
                 return aux;
@@ -135,13 +135,14 @@ void eliminar(NodoA*& cabecera, int dato){
             /*
                 luego hacemos las conexiones y eliminamos el nodo
                 al final preguntamos si el nodo era el primero para 
-                mover la cabecera al anterior, es decir a auxiliar.
+                mover la cabecera al siguiente, es decir:
+                cabecera = cabecera->sig;
             */
             aux->sig = nodo_eliminar->sig;
-            free(nodo_eliminar);
             if(nodo_eliminar == cabecera){
-                cabecera = aux;
+                cabecera = cabecera->sig;
             }
+            free(nodo_eliminar);
         }
     }
     else{
