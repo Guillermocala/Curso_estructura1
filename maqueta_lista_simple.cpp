@@ -83,7 +83,7 @@ void eliminar(NodoA*& cabecera, int dato){
         NodoA* aux = cabecera;
         if(posicion == 0){
             cabecera = cabecera->sig;
-            free(aux);
+            delete(aux);
         }
         else{
             for(int i = 0; i < (posicion - 1); i++){
@@ -91,7 +91,7 @@ void eliminar(NodoA*& cabecera, int dato){
             }
             NodoA* nodo_eliminar = aux->sig;
             aux->sig = nodo_eliminar->sig;
-            free(nodo_eliminar);
+            delete(nodo_eliminar);
         }
     }
     else{

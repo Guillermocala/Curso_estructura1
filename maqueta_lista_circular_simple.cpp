@@ -16,7 +16,8 @@ NodoA* buscar(NodoA* cabecera, int dato);
 void mostrar(NodoA* cabecera);
 void eliminar(NodoA*& cabecera, int dato);
 // Ejercicios
-
+void insertar_despues(NodoA*& cabecera, int despues_de, int dato_nuevo);
+void insertar_antes(NodoA*& cabecera, int antes_de, int dato_nuevo);
 
 int main() {
     NodoA* puntero_lista = NULL;
@@ -118,7 +119,7 @@ void eliminar(NodoA*& cabecera, int dato){
         */
         if(nodo_eliminar == cabecera && nodo_eliminar->sig == cabecera){
             cabecera = NULL;
-            free(nodo_eliminar);
+            delete(nodo_eliminar);
         }
         else{
             /*
@@ -142,7 +143,7 @@ void eliminar(NodoA*& cabecera, int dato){
             if(nodo_eliminar == cabecera){
                 cabecera = cabecera->sig;
             }
-            free(nodo_eliminar);
+            delete(nodo_eliminar);
         }
     }
     else{
@@ -165,4 +166,60 @@ void mostrar(NodoA* cabecera){
         }while(aux != cabecera);
     }
     cout << "CAB" << endl;
+}
+
+// Ejercicios
+
+void insertar_despues(NodoA*& cabecera, int despues_de, int dato_nuevo){
+    /*
+        buscamos nuestro nodo objetivo, es decir, el nodo despues
+        del que vamos a insertar
+    */
+    NodoA* nodo_objetivo = buscar(cabecera, despues_de);
+    if (nodo_objetivo != NULL){
+        /*
+            si el nodo es encontrado entonces creamos un nuevo nodo
+            con el apuntador siguiente: nodo_objetivo->sig
+            luego hacemos: nodo_objetivo->sig = nuevo_nodo;
+            con eso tenemos los dos movimientos, ya que cabecera 
+            nunca cambia
+        */
+        NodoA* nuevo_nodo = crear_nodo(nodo_objetivo->sig, dato_nuevo);
+        nodo_objetivo->sig = nuevo_nodo;
+    }
+    else{
+        cout << "No encontrado" << endl;
+    }
+}
+
+void insertar_antes(NodoA*& cabecera, int antes_de, int dato_nuevo){
+    /*
+        buscamos nuestro nodo objetivo, es decir, el nodo despues
+        del que vamos a insertar
+    */
+    NodoA* nodo_objetivo = buscar(cabecera, despues_de);
+    if (nodo_objetivo != NULL){
+        /*
+            ponemos un auxiliar antes del nodo del cual vamos
+            a ingresar y procedemos a hacer los movimientos
+        */
+        NodoA* aux = cabecera;
+        do{
+            aux = aux->sig;
+        } while(aux->sig != nodo_objetivo);
+        NodoA* nuevo_nodo = crear_nodo(nodo_objetivo, dato_nuevo);
+        aux->sig = nuevo_nodo;
+        /*
+            si el nuevo nodo esta detras de cabecera, es decir
+            insertamos el nodo justo detras de la cabecera
+            entonces movemos la cabecera ya que ese nodo nuevo
+            seria la cabecera
+        */
+        if (nuevo_nodo->sig == cabecera){
+            cabecera = nuevo_nodo;
+        }
+    }
+    else{
+        cout << "No encontrado" << endl;
+    }
 }
