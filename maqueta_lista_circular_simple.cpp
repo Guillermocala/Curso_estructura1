@@ -18,6 +18,7 @@ void eliminar(NodoA*& cabecera, int dato);
 // Ejercicios
 void insertar_despues(NodoA*& cabecera, int despues_de, int dato_nuevo);
 void insertar_antes(NodoA*& cabecera, int antes_de, int dato_nuevo);
+void repetir_lista(NodoA* cabecera, int cantidad);
 
 int main() {
     NodoA* puntero_lista = NULL;
@@ -32,8 +33,9 @@ int main() {
     mostrar(puntero_lista);
     insertar_cola(puntero_lista, 5);
     mostrar(puntero_lista);
-    eliminar(puntero_lista, 1);
-    mostrar(puntero_lista);
+    cout << "a repetir lista..." << endl;
+    repetir_lista(puntero_lista, 3);
+
 
     return 0;
 }
@@ -197,7 +199,7 @@ void insertar_antes(NodoA*& cabecera, int antes_de, int dato_nuevo){
         buscamos nuestro nodo objetivo, es decir, el nodo despues
         del que vamos a insertar
     */
-    NodoA* nodo_objetivo = buscar(cabecera, despues_de);
+    NodoA* nodo_objetivo = buscar(cabecera, antes_de);
     if (nodo_objetivo != NULL){
         /*
             ponemos un auxiliar antes del nodo del cual vamos
@@ -222,4 +224,18 @@ void insertar_antes(NodoA*& cabecera, int antes_de, int dato_nuevo){
     else{
         cout << "No encontrado" << endl;
     }
+}
+
+void repetir_lista(NodoA* cabecera, int cantidad){
+    NodoA* aux = cabecera;
+    if(aux != NULL){
+        for(int i = 0; i < cantidad; i++){
+            mostrar(cabecera);
+        }
+        cout << "Se ha repetido la lista: " << cantidad << " veces." << endl;
+    }
+    else{
+        cout << "lista vacia" << endl;
+    }
+
 }

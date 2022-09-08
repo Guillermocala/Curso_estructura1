@@ -32,7 +32,7 @@ int main() {
     insertar_cola(puntero_lista, 4);
     insertar_cola(puntero_lista, 5);
     mostrar(puntero_lista);
-    insertar_antes(puntero_lista, 4, 23);
+    insertar_antes(puntero_lista, 2, 23);
     mostrar(puntero_lista);
 
     return 0;
@@ -140,16 +140,14 @@ void insertar_antes(NodoA*& cabecera,int antes_de, int dato_nuevo){
 	}else{
 		if(aux->ant == NULL){
             /*
-                si esta en el primer nodo entonces colocamos
-                un auxiliar en la cabecera para hacer facil
-                el ultimo movimiento: aux2->ant = cabecera;
-                en la cabeza al crear el nodo recibe de primero
-                null(primer nodo), luego la cabecera que luego
-                va a reemplazar
+                si esta en el primer nodo entonces solo insertamos 
+                teniendo en cuenta que el siguiente del nodo nuevo
+                va a ser la cabecera y al final el auxiliar que 
+                vendria siendo donde antes estaba la cabecera lo apuntamos
+                al nuevo nodo con: aux->ant = cabecera;
             */
-            NodoA* aux2 = cabecera;
 			cabecera = crear_nodo(NULL, cabecera, dato_nuevo);
-            aux2->ant = cabecera;
+            aux->ant = cabecera;
 		}else{
             /*
                 en cualquier otro caso colocamos un auxiliar antes
